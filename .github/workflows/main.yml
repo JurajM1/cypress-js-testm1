@@ -1,0 +1,16 @@
+name: Cypress tests
+on:
+  - push
+jobs:
+  cypress-run:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: "20"
+      - name: Install Dependencies
+        run: npm ci
+      - name: Run Cypress tests
+        uses: cypress-io/github-action@v6
