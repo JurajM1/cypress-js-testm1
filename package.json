@@ -10,6 +10,7 @@
   "license": "ISC",
   "description": "",
   "devDependencies": {
+    "artillery": "^2.0.18",
     "cypress": "^13.13.0"
   }
 }
