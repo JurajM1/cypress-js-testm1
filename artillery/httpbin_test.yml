@@ -1,0 +1,39 @@
+config:
+  target: http://httpbin.org/
+  phases:
+    - duration: 2
+      arrivalRate: 2
+      name: Artillery First Test
+  plugins:
+    ensure: {}
+  ensure:
+    thresholds:
+      - http.response_time.p95: 500
+      - http.response_time.p99: 1000
+      - http.response_time.max: 700
+      - http.response_time.min: 200
+      - http.responses: 10
+      - vusers.session_length.min: 700
+      - vusers.session_length.max: 2000
+    conditions:
+      - expression: "http.request_rate >= 2 and http.response_time.max < 600"
+      - expression: "http.request_rate >= 2 and http.response_time.max < 1000"
+      - expression: vusers.failed==0
+  statuscode: 200
+scenarios:
+  - name: Getting a resource
+    flow:
+      - get:
+          url: "{{ target }}get"
+      - post:
+          url: "{{ target }}post"
+          json:
+            username: "Test User"
+            password: "Temp Password"
+          capture:
+            - json: "$.json"
+              as: "request_body"
+            - json: "$.headers.Host"
+              as: "host"
+      - log: "Json value from response is: {{request_body}}"
+      - log: "Host value from response is: {{host}}"
