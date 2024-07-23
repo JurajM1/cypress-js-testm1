@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "cypress run",
+    "lint": "eslint ."
   },
   "keywords": [],
   "author": "",
@@ -11,6 +12,7 @@
   "description": "",
   "devDependencies": {
     "artillery": "^2.0.18",
-    "cypress": "^13.13.0"
+    "cypress": "^13.13.0",
+    "eslint": "^8.0.0"
   }
 }
